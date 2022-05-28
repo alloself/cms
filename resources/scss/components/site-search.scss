@@ -1,0 +1,97 @@
+.site-search {
+    position: relative;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s, opacity 0.3s;
+    margin-top: 16px;
+    transform: translateY(-40px);
+
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    @screen xl {
+        margin-top: 0;
+        position: relative;
+        top: auto;
+        width: 340px;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    [type='search'],
+    [type='text'] {
+        width: 100%;
+        outline: none;
+        border: none;
+        padding: 20px;
+        padding-right: 60px;
+        font-size: 16px;
+        border-radius: 0 0 10px 10px;
+        line-height: normal;
+        transition: border 0.3s;
+        color: theme('colors.black');
+        border: 2px solid theme('colors.secondary-10');
+        background: theme('colors.white');
+
+        &:focus {
+            border-color: theme('colors.brand');
+        }
+
+        &::placeholder {
+            color: theme('colors.black');
+        }
+
+        @screen xl {
+            border-radius: 34px;
+            padding: 8px 20px;
+            padding-right: 40px;
+        }
+    }
+
+    [type='submit'] {
+        position: absolute;
+        top: 50%;
+        right: 6px;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        background: theme('colors.brand');
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        .svg-icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        @screen xl {
+            width: 26px;
+            height: 26px;
+        }
+    }
+}
+
+.dark {
+    .site-search {
+        input[type='text'],
+        input[type='search'] {
+            color: theme('colors.white');
+            background: theme('colors.main-10');
+
+            &::placeholder {
+                color: theme('colors.white');
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+.site-about-block {
+    &__item {
+        &.is-active {
+            background: theme('colors.brand') !important;
+        }
+    }
+}

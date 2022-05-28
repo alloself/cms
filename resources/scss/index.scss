@@ -1,0 +1,16 @@
+@import './fonts.scss';
+@import './base/defaults.scss';
+
+@tailwind base;
+@tailwind components;
+
+// elements
+@import './elements/theme-switcher.scss';
+@import './elements/svg-icons.scss';
+@import './elements/round-icon.scss';
+
+// components
+@import './components/site-search.scss';
+@import './components/about.scss';
+
+@tailwind utilities;
