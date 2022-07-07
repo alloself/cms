@@ -1,16 +1,42 @@
-@import './fonts.scss';
-@import './base/defaults.scss';
+@import "./fonts.scss";
+@import "./base/defaults.scss";
 
 @tailwind base;
 @tailwind components;
 
 // elements
-@import './elements/theme-switcher.scss';
-@import './elements/svg-icons.scss';
-@import './elements/round-icon.scss';
+@import "./elements/theme-switcher.scss";
+@import "./elements/svg-icons.scss";
+@import "./elements/round-icon.scss";
 
 // components
-@import './components/site-search.scss';
-@import './components/about.scss';
+@import "./components/site-search.scss";
+@import "./components/about.scss";
 
 @tailwind utilities;
+
+.dark {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        box-shadow: 0 0 0 30px #222222 inset !important;
+        color: white;
+    }
+    input:-webkit-autofill {
+        -webkit-text-fill-color: white !important;
+    }
+}
+
+.light {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        box-shadow: 0 0 0 30px white inset !important;
+        color: white;
+    }
+    input:-webkit-autofill {
+        -webkit-text-fill-color: black !important;
+    }
+}

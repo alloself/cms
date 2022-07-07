@@ -12,51 +12,34 @@
                     </a>
                     <nav class="site-top-nav flex-none hidden xl:block ml-8">
                         <ul class="flex text-16px dark:text-white">
-                            <li class="mr-8">
+                            <li class="mr-8" v-for="item in items" :key="item.title">
                                 <a href="#" class="hover:text-brand">Проект</a>
-                            </li>
-                            <li class="mr-8">
-                                <a href="#" class="hover:text-brand">Новости</a>
-                            </li>
-                            <li class="mr-8">
-                                <a href="#" class="hover:text-brand">Помощь</a>
-                            </li>
-                            <li class="mr-8">
-                                <a href="#" class="hover:text-brand">Контакты</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <form
-                        data-site-search
-                        action="#"
-                        class="site-search flex-none"
-                        :class="{ 'is-visible': mobileSearchVisible }"
+                    <button
+                        v-if="user"
+                        class="hidden xl:block px-4 self-stretch rounded-34px bg-brand text-white"
+                        @click="logout($router)"
                     >
-                        <input type="text" placeholder="Поиск" required />
-                        <button type="submit">
-                            <app-svg-icon iconName="search"></app-svg-icon>
-                        </button>
-                    </form>
-                    <!-- <button
-                        @click="showModal('login-modal')"
-                        class="hidden xl:block px-4 self-stretch rounded-34px border border-2 border-secondary-10"
+                        Выйти
+                    </button>
+                    <router-link
+                        v-else
+                        class="hidden xl:flex px-4 self-stretch rounded-34px bg-brand text-white items-center"
+                        :to="{ name: 'Login' }"
                     >
                         Войти
-                    </button> -->
-                    <button class="hidden xl:block px-4 self-stretch rounded-34px bg-brand text-white">Выйти</button>
-                    <div
-                        @click="mobileSearchVisible = !mobileSearchVisible"
-                        class="round-icon flex-none xl:hidden"
-                        data-site-search-mobile-trigger
-                        :class="{ 'is-active': mobileSearchVisible }"
-                    >
-                        <app-svg-icon iconName="search-brand"></app-svg-icon>
-                    </div>
+                    </router-link>
                     <button type="button" class="theme-switcher flex-none" @click="toggleTheme()">
                         <app-svg-icon iconName="theme-dark" iconClass="svg-icon--theme-dark"></app-svg-icon>
                         <app-svg-icon iconName="theme-light" iconClass="svg-icon--theme-light"></app-svg-icon>
+                    </button>
+                    <button type="button" class="language-switcher flex-none" @click="toggleLanguage()">
+                        <span class="language-ru">Ru</span>
+                        <span class="language-en">En</span>
                     </button>
                 </div>
             </div>
@@ -65,8 +48,9 @@
 </template>
 
 <script>
-import { toggleTheme } from '../../../../shared/js/helpers/index';
+import { toggleTheme, toggleLanguage } from '../../../../shared/js/helpers/index';
 import { showOffcanvas, showModal } from '../../../../shared/js/events/index';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'Header',
@@ -75,10 +59,18 @@ export default {
             mobileSearchVisible: false,
         };
     },
+    computed: {
+        ...mapState('auth', ['user', 'menu']),
+        items() {
+            return this.menu?.items || [];
+        },
+    },
     methods: {
+        ...mapActions('auth', ['logout']),
         toggleTheme,
         showOffcanvas,
         showModal,
+        toggleLanguage,
     },
 };
 </script>

@@ -3,9 +3,18 @@ body {
     font-family: Roboto !important;
     font-weight: 400;
 
+    main {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        .main-section {
+            flex: 1 0 auto;
+        }
+    }
+
     &.dark {
-        background-color: theme('colors.main-10');
-        color: theme('colors.white');
+        background-color: theme("colors.main-10");
+        color: theme("colors.white");
     }
 }
 

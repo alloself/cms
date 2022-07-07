@@ -1,16 +1,17 @@
 <template>
-  <list namespace="page" :headers="headers"></list>
+    <list namespace="page" :headers="headers"></list>
 </template>
 <script>
 export default {
-  metaInfo: {
-    title: "Страницы",
-  },
-  data: () => ({
-    headers: [
-      { text: "#", value: "id" },
-      { text: "Заголовок", value: "title" },
-    ],
-  }),
+    metaInfo: {
+        title: 'Страницы',
+    },
+    data: () => ({
+        headers: [
+            { text: '#', value: 'id' },
+            { text: 'Заголовок', value: 'title' },
+            { text: 'Язык', value: 'language.name' },
+        ],
+    }),
 };
 </script>

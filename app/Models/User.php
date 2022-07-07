@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Kalnoy\Nestedset\NodeTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, NodeTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'referal_code',
+        'is_admin',
+        'parent_id',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'balance',
+        'status',
+        'briefcase_id',
+        'referal_amount'
     ];
 
     /**

@@ -1,47 +1,81 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
-// views
-import Wallet from '../views/Wallet.vue';
-import Referrals from '../views/Referrals.vue';
-import Information from '../views/Information.vue';
-import Instruction from '../views/Instruction.vue';
-import Support from '../views/Support.vue';
-
+import { getValue } from '@/utils';
+import { TOKEN } from '@/const';
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: '/',
-        name: 'Wallet',
-        component: Wallet,
+        component: () => import('@/layouts/Auth.vue'),
+        meta: {
+            requiresAuth: true,
+        },
+        children: [
+            {
+                path: '',
+                name: 'Wallet',
+                component: () => import('@/views/Wallet.vue'),
+            },
+            {
+                path: '/referrals',
+                name: 'Referrals',
+                component: () => import('@/views/Referrals.vue'),
+            },
+            {
+                path: '/information',
+                name: 'Information',
+                component: () => import('@/views/Information.vue'),
+            },
+            {
+                path: '/instruction',
+                name: 'Instruction',
+                component: () => import('@/views/Instruction.vue'),
+            },
+            {
+                path: '/support',
+                name: 'Support',
+                component: () => import('@/views/Support.vue'),
+            },
+            {
+                path: '/ticket/:id',
+                name: 'Ticket',
+                component: () => import('@/views/Ticket.vue'),
+            },
+        ],
     },
     {
-        path: '/referrals',
-        name: 'Referrals',
-        component: Referrals,
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/Login.vue'),
     },
     {
-        path: '/information',
-        name: 'Information',
-        component: Information,
-    },
-    {
-        path: '/instruction',
-        name: 'Instruction',
-        component: Instruction,
-    },
-    {
-        path: '/support',
-        name: 'Support',
-        component: Support,
+        path: '/registration',
+        name: 'Registration',
+        component: () => import('@/views/Registration.vue'),
     },
 ];
 
 const router = new VueRouter({
     mode: 'history',
-    base: process.env.BASE_URL,
+    base: '/account/',
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        const token = getValue(TOKEN);
+        console.log(token);
+        if (!token) {
+            next({
+                name: 'Login',
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
 });
 
 export default router;

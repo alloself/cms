@@ -4,6 +4,7 @@ namespace App\Models\CMS;
 
 use App\Models\Attribute;
 use App\Models\File;
+use App\Models\Language;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,6 @@ use Kalnoy\Nestedset\NodeTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-
 class Page extends Model
 {
     use HasFactory, Sluggable, NodeTrait {
@@ -20,7 +20,7 @@ class Page extends Model
         Sluggable::replicate as replicateSlug;
     }
 
-    protected $fillable = ['title', 'description', 'keywords', 'slug', 'parent_id', 'index', 'path', 'language_id', 'template_id', 'subtitle'];
+    protected $fillable = ['title', 'description', 'keywords', 'slug', 'parent_id', 'index', 'path', 'language_id', 'template_id', 'subtitle', 'language_id'];
 
     protected $casts = [
         'index' => 'boolean',
@@ -117,5 +117,10 @@ class Page extends Model
     public function attributes()
     {
         return $this->morphToMany(Attribute::class, 'attributeable')->withPivot('value');
+    }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
     }
 }

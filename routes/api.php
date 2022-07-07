@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Account\CoinbaseController;
+use App\Http\Controllers\Api\Account\TicketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\CMS\PageController;
@@ -10,6 +12,8 @@ use App\Http\Controllers\Api\CMS\MenuController;
 use App\Http\Controllers\Api\CMS\MenuItemController;
 use App\Http\Controllers\Api\CMS\TemplateController;
 use App\Http\Controllers\Api\CMS\OrderController;
+use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +41,7 @@ Route::prefix('cms')->group(function () {
         Route::apiResource('template', TemplateController::class);
         Route::apiResource('menu-item', MenuItemController::class);
         Route::apiResource('order', OrderController::class);
+        Route::apiResource('language', LanguageController::class);
 
         Route::prefix('destroy')->group(function () {
             Route::post('page', [PageController::class, 'deleteMany']);
@@ -50,6 +55,7 @@ Route::prefix('cms')->group(function () {
             Route::get('block', [BlockController::class, 'nomenclature']);
             Route::get('menu-item', [MenuItemController::class, 'nomenclature']);
             Route::get('template', [TemplateController::class, 'nomenclature']);
+            Route::get('language', [LanguageController::class, 'nomenclature']);
         });
     });
 });
@@ -57,4 +63,23 @@ Route::prefix('cms')->group(function () {
 
 Route::prefix('site')->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('store');
+});
+
+
+Route::prefix('account')->group(function () {
+    Route::post('/register', [AuthenticationController::class, 'register']);
+    Route::post('/login', [AuthenticationController::class, 'login']);
+
+    Route::prefix('auth')->middleware('auth:sanctum', 'verified')->group(function () {
+        Route::post('/logout', [AuthenticationController::class, 'logout']);
+        Route::get('/currency', [AuthenticationController::class, 'currencyList']);
+        Route::get('/user', [AuthenticationController::class, 'user']);
+        Route::get('/menu', [AuthenticationController::class, 'menu']);
+        Route::apiResource('ticket', TicketController::class);
+        Route::apiResource('message', MessageController::class);
+
+        Route::prefix('invoice')->group(function () {
+            Route::post('/create', [CoinbaseController::class, 'createInvoice']);
+        });
+    });
 });

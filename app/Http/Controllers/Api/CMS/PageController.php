@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
-        return Page::paginate($request->per_page ? intval($request->per_page) : 15);
+        return Page::with('language')->paginate($request->per_page ? intval($request->per_page) : 15);
     }
 
     /**

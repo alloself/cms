@@ -1,13 +1,13 @@
 <template>
     <div
-        class="site-modal"
+        class="site-modal "
         :class="[{ 'is-opened': visible }, addClass]"
         @click="clickHandler($event)"
         data-modal-element
     >
-        <div class="site-modal__body shadow-md">
+        <div class="site-modal__body shadow-md bg-secondary dark:bg-block-20">
             <div class="site-modal__close" @click="toggle()">
-                <div class="svg-icon">
+                <div class="svg-icon dark:text-white">
                     <svg><use xlink:href="#close"></use></svg>
                 </div>
             </div>
@@ -107,7 +107,6 @@ export default {
         top: 16px;
 
         .svg-icon {
-            color: #2b2a33;
             width: 20px;
             height: 20px;
         }

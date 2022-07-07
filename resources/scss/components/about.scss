@@ -1,7 +1,13 @@
 .site-about-block {
     &__item {
         &.is-active {
-            background: theme('colors.brand') !important;
+            background: theme("colors.brand") !important;
         }
+    }
+}
+
+.app-tabs {
+    * > p {
+        min-height: 1rem;
     }
 }

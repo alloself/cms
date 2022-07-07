@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cms{any}', [PageController::class, 'cms'])->where('any', '.*');
-Route::get('/{path?}', [PageController::class, 'site'])->where('path', '.*')->name('site');
+Route::redirect('/', '/ru');
+
+Route::get('/cms{any}', [PageController::class, 'cms'])->where('any', '.*')->name('cms');
+Route::get('/account{any}', [PageController::class, 'account'])->where('any', '.*')->name('account');
+Route::prefix('{language}')->get('/{path?}', [PageController::class, 'site'])->where('path', '.*')->name('site');

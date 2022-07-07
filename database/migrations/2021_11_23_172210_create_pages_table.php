@@ -23,10 +23,12 @@ class CreatePagesTable extends Migration
             $table->longText('keywords')->nullable();
             $table->boolean('index')->default(false);
             $table->unsignedBigInteger('template_id')->nullable();
+            $table->unsignedBigInteger('language_id');
             $table->nestedSet();
             $table->timestamps();
 
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 
