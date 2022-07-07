@@ -45,7 +45,8 @@ export default {
     methods: {
         ...mapActions('auth', ['toUpBalance']),
         async submitHandler() {
-            await this.toUpBalance(this.selectedAmount.value);
+            const { data } = await this.toUpBalance(this.selectedAmount);
+            window.location.assign(data);
             this.selectedAmount = null;
         },
     },
