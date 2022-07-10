@@ -1,5 +1,5 @@
 <template>
-    <main class="flex flex-col grid-rows-1 tracking-wider h-full">
+    <main class="flex flex-col grid-rows-1 tracking-wider h-full" v-if="user && isEmailConfrimed">
         <app-header></app-header>
         <div class="flex container mx-auto px-4 h-full">
             <div class="hidden xl:block xl:w-1/5">
@@ -32,13 +32,25 @@
         </app-modal>
         <!-- [-] modals -->
     </main>
+    <div class="flex flex-col items-center justify-center h-full w-full" v-else-if="user && !isEmailConfrimed">
+        <h1 class="w-[300px]">Аккаунт не подтверждён,чтобы продолжить перейдите по ссылке из письма отправленного на <a class="text-brand" target="_blank" :href="`https://${user.email.split('@').pop()}`">адрес</a> указанный при регистрации.</h1>
+
+    </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     methods: {
         ...mapActions('auth', ['logout']),
     },
+    computed: {
+        ...mapGetters('auth', ['user']),
+        isEmailConfrimed() {
+            return this.user && this.user.email_verified_at;
+        },
+    },
+};
+</script>
 };
 </script>
 <style lang="scss" scoped>

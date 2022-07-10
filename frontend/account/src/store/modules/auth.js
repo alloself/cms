@@ -97,4 +97,9 @@ export const auth = {
             state.menu = data;
         },
     },
+    getters:{
+        user(state) {
+            return state.user
+        }
+    }
 };

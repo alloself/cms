@@ -35,7 +35,7 @@ languageOnLoad();
 
 Vue.config.productionTip = false;
 
-new Vue({
+export const app = new Vue({
     router,
     store,
     render: (h) => h(App),

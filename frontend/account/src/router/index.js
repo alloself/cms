@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { getValue } from '@/utils';
 import { TOKEN } from '@/const';
+import store from '../store';
 Vue.use(VueRouter);
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
         component: () => import('@/layouts/Auth.vue'),
         meta: {
             requiresAuth: true,
+            requiresEmailConfrim: true,
         },
         children: [
             {
@@ -41,6 +43,11 @@ const routes = [
                 path: '/ticket/:id',
                 name: 'Ticket',
                 component: () => import('@/views/Ticket.vue'),
+            },
+            {
+                path: '/email-warning',
+                name: 'EmailWarning',
+                component: () => import('@/views/EmailWarning.vue'),
             },
         ],
     },
