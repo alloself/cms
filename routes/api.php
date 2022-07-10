@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Account\CoinbaseController;
 use App\Http\Controllers\Api\Account\TicketController;
+use App\Http\Controllers\Api\Account\VerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\CMS\PageController;
@@ -65,10 +66,11 @@ Route::prefix('site')->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('store');
 });
 
-
 Route::prefix('account')->group(function () {
     Route::post('/register', [AuthenticationController::class, 'register']);
     Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
     Route::prefix('auth')->middleware('auth:sanctum', 'verified')->group(function () {
         Route::post('/logout', [AuthenticationController::class, 'logout']);

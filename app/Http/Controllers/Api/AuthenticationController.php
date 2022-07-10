@@ -61,6 +61,7 @@ class AuthenticationController extends Controller
         $user->remember_token = Str::random(10);
         $user->referal_code = Str::random(10);
         $user->save();
+        $user->sendEmailVerificationNotification();
 
         $token = $user->createToken('account')->plainTextToken;
 
